@@ -1,7 +1,7 @@
 // abstracts
 @import "abstracts/variabels",
         "abstracts/functions",
-        "abstracts/variabels";
+        "abstracts/mixins";
 
 // base
 @import "base/reset",
@@ -11,10 +11,11 @@
 @import "components/buttons";
 
 // layout
-@import "layout/footer",
+@import "layout/base",
+        "layout/header",
+        "layout/footer",
         "layout/forms",
         "layout/grid",
-        "layout/header",
         "layout/navigation",
         "layout/sidebar";
 
