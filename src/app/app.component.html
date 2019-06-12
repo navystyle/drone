@@ -1,56 +1,7 @@
-<div class="ui fixed menu">
-    <div class="ui container">
-        <a href="#" class="header item">
-            <!--<img class="logo" src="assets/images/logo.png">-->
-            <i class="large barcode icon"></i>
-            Project
-        </a>
-        <a href="#" class="item">Home</a>
-        <div class="ui simple dropdown item">
-            Dropdown <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item" href="#">Link Item</a>
-                <a class="item" href="#">Link Item</a>
-                <div class="divider"></div>
-                <div class="header">Header Item</div>
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    Sub Menu
-                    <div class="menu">
-                        <a class="item" href="#">Link Item</a>
-                        <a class="item" href="#">Link Item</a>
-                    </div>
-                </div>
-                <a class="item" href="#">Link Item</a>
-            </div>
-        </div>
-    </div>
-</div>
+<app-header></app-header>
 
 <div class="ui main text container">
-    <h1 class="ui header">Semantic UI Fixed Template</h1>
-    <p>This is a basic fixed menu template using fixed size containers.</p>
-    <p>A text container is used for the main container, which is useful for single column layouts</p>
-    <div style="height: 2000px;"></div>
+    <router-outlet></router-outlet>
 </div>
 
-<div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui divider"></div>
-        <!--<img src="assets/images/logo.png" class="ui centered mini image">-->
-        <h4 class="ui icon header">
-            <i class="barcode icon"></i>
-            <div class="content">
-                Project
-                <div class="sub header">powered by shlee</div>
-            </div>
-        </h4>
-        <br>
-        <div class="ui horizontal small divided link list">
-            <a class="item" href="#">Site Map</a>
-            <a class="item" href="#">Contact Us</a>
-            <a class="item" href="#">Terms and Conditions</a>
-            <a class="item" href="#">Privacy Policy</a>
-        </div>
-    </div>
-</div>
+<app-footer></app-footer>

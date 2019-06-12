@@ -1,0 +1,38 @@
+<div class="ui fixed menu">
+    <div class="ui container">
+        <a routerLink="/main" class="header item">
+            <!--<img class="logo" src="assets/images/logo.png">-->
+            <i class="large barcode icon"></i>
+            Project
+        </a>
+        <a routerLink="/menu1" class="item">menu1</a>
+        <div class="ui simple dropdown item">
+            menu2 <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#">Link Item</a>
+                <a class="item" href="#">Link Item</a>
+                <div class="divider"></div>
+                <div class="header">Header Item</div>
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    Sub Menu
+                    <div class="menu">
+                        <a class="item" href="#">Link Item</a>
+                        <a class="item" href="#">Link Item</a>
+                    </div>
+                </div>
+                <a class="item" href="#">Link Item</a>
+            </div>
+        </div>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui transparent icon input">
+                    <i class="search icon"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <a class="item" (click)="login()" *ngIf="!isAuthenticated">Log in</a>
+            <a class="item" (click)="logout()" *ngIf="isAuthenticated">Logout</a>
+        </div>
+    </div>
+</div>
