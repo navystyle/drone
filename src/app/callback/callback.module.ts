@@ -4,11 +4,11 @@ import {CallbackComponent} from './callback.component';
 import {CallbackRoutingModule} from './callback-routing.module';
 
 @NgModule({
-			  declarations: [CallbackComponent],
-			  imports: [
-				  CommonModule,
-				  CallbackRoutingModule
-			  ]
-		  })
+    declarations: [CallbackComponent],
+    imports: [
+        CommonModule,
+        CallbackRoutingModule
+    ]
+})
 export class CallbackModule {
 }

@@ -5,15 +5,15 @@ import {FooterComponent} from './footer/footer.component';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
-			  declarations: [HeaderComponent, FooterComponent],
-			  exports: [
-				  HeaderComponent,
-				  FooterComponent
-			  ],
-			  imports: [
-				  CommonModule,
-				  RouterModule
-			  ]
-		  })
+    declarations: [HeaderComponent, FooterComponent],
+    exports: [
+        HeaderComponent,
+        FooterComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule
+    ]
+})
 export class LayoutModule {
 }

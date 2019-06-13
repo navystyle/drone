@@ -1,49 +1,82 @@
-import { Injectable } from '@angular/core';
-import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import * as config from '../../../../auth_config.json';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../environments/environment';
+import Auth0Lock from 'auth0-lock';
+import {Router} from '@angular/router';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-	isAuthenticated = new BehaviorSubject(false);
-	profile = new BehaviorSubject<any>(null);
+    auth0Options = {
+        theme: {
+            // logo: '/assets/logo.svg',
+            // primaryColor: '#DFA612',
+        },
+        auth: {
+            redirectUrl: environment.auth0.callbackURL,
+            responseType: 'token id_token',
+            audience: `https://${environment.auth0.domain}/userinfo`,
+            params: {
+                scope: 'opneid profile'
+            }
+        },
+        autoclose: true,
+    };
 
-	private auth0Client: Auth0Client;
-	config = config;
+    lock = new Auth0Lock(
+        environment.auth0.clientId,
+        environment.auth0.domain,
+        this.auth0Options
+    );
 
-	/**
-     * Gets the Auth0Client instance.
-     */
-	async getAuth0Client(): Promise<Auth0Client> {
-		if (!this.auth0Client) {
-			this.auth0Client = await createAuth0Client({
-				domain: config.domain,
-				client_id: config.clientId
-			});
+    constructor(private jwtHelper: JwtHelperService,
+                private router: Router) {
+        this.lock.on('authenticated', (authResult: any) => {
+            this.lock.getUserInfo(authResult.accessToken, (error: any, profile: any) => {
+                console.log('profile', profile);
+                if (error) {
+                    throw new Error(error);
+                }
 
-			try {
-				// Make sure the session has been initialized
-				// await this.auth0Client.getTokenSilently();
+                this.setToken(authResult.idToken);
+                this.setProfile(JSON.stringify(profile));
+                console.log('it worked!');
+                this.router.navigate(['/']);
+            });
+        });
 
-				// Provide the current value of isAuthenticated
-				this.isAuthenticated.next(await this.auth0Client.isAuthenticated());
+        this.lock.on('authorization_error', error => {
+            console.log('something went wrong', error);
+        });
+    }
 
-				// Whenever isAuthenticated changes, provide the current value of `getUser`
-				this.isAuthenticated.subscribe(async isAuthenticated => {
-					if (isAuthenticated) {
-						return this.profile.next(await this.auth0Client.getUser());
-					}
+    getToken() {
+        return localStorage.getItem('token');
+    }
 
-					this.profile.next(null);
-				});
-			} catch {}
+    setToken(token: any) {
+        localStorage.setItem('token', token);
+    }
 
-			return this.auth0Client;
-		}
+    async getProfile() {
+        // return localStorage.getItem('profile');
+    }
 
-		return this.auth0Client;
-	}
+    setProfile(profile: any) {
+        localStorage.setItem('profile', profile);
+    }
+
+    login() {
+        this.lock.show();
+    }
+
+    logout() {
+        localStorage.removeItem('profile');
+        localStorage.removeItem('token');
+    }
+
+    isAuthenticated() {
+        return !this.jwtHelper.isTokenExpired(this.getToken());
+    }
 }
