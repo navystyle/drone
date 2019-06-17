@@ -27,9 +27,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "./node_modules/semantic-ui/dist/semantic.min.css",
+              "src/sass/main.scss"
             ],
-            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/sass"
+              ]
+            },
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/semantic-ui/dist/semantic.min.js",
+              "./node_modules/auth0-js/build/auth0.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -104,7 +114,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/sass/main.scss"
             ],
             "scripts": [],
             "assets": [

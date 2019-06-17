@@ -40,7 +40,6 @@ app.get('*.*', express.static(DIST_FOLDER, {
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
-    console.log('server log');
     res.render('index', {req});
 });
 
