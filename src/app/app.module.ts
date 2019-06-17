@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ApplicationRef, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ApplicationRef, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -7,6 +7,7 @@ import {createInputTransfer, createNewHosts, removeNgStyles} from '@angularclass
 import {LayoutModule} from './layout/layout.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CoreModule} from './core/core.module';
+import {AuthService} from './core/services/auth.service';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,15 @@ import {CoreModule} from './core/core.module';
         CoreModule,
         LayoutModule
     ],
-    providers: [],
+    providers: [
+        AuthService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: init,
+            deps: [AuthService],
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -63,4 +72,9 @@ export class AppModule {
         delete store.disposeOldHosts;
         // anything you need done the component is removed
     }
+}
+
+export function init(authService: AuthService): Function {
+    return () => authService.setUser();
+    // return () => {};
 }

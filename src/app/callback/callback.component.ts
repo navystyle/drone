@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../core/services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-callback',
@@ -8,11 +6,17 @@ import {Router} from '@angular/router';
 })
 export class CallbackComponent implements OnInit {
 
-    constructor(private authService: AuthService,
-                private router: Router) {
+    constructor() {
     }
 
     ngOnInit() {
     }
 
 }
+
+// http://localhost:4200/callback#
+// access_token=HFNkHozmvN-8Jmjbyry15hqpWc0rp6zg
+// &expires_in=7200
+// &token_type=Bearer
+// &state=n3bRVQB4D8tUg6EaXcbgeXRGASDXgLJT
+// &id_token=eyJ0eXAiOiJKV1QiLCJhbGciO...
