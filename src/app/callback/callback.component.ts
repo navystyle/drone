@@ -1,31 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../core/services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
-			   selector: 'app-callback',
-			   templateUrl: './callback.component.html'
-		   })
+    selector: 'app-callback',
+    templateUrl: './callback.component.html'
+})
 export class CallbackComponent implements OnInit {
 
-	constructor(private authService: AuthService,
-				private router: Router) {
-	}
+    constructor() {
+    }
 
-	async ngOnInit() {
-		const client = await this.authService.getAuth0Client();
-		console.log(client);
-		const result = await client.handleRedirectCallback();
-		console.log('result', result);
-
-		const targetRoute =
-			result.appState && result.appState.target ? result.appState.target : '';
-
-		this.authService.isAuthenticated.next(await client.isAuthenticated());
-		this.authService.profile.next(await client.getUser());
-		// this.authService.token.next(await client.getTokenSilently());
-
-		this.router.navigate([targetRoute]);
-	}
+    ngOnInit() {
+    }
 
 }
+
+// http://localhost:4200/callback#
+// access_token=HFNkHozmvN-8Jmjbyry15hqpWc0rp6zg
+// &expires_in=7200
+// &token_type=Bearer
+// &state=n3bRVQB4D8tUg6EaXcbgeXRGASDXgLJT
+// &id_token=eyJ0eXAiOiJKV1QiLCJhbGciO...
