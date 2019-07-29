@@ -1,0 +1,26 @@
+.main.container {
+  padding-top: 7em;
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.cp {
+  cursor: pointer;
+}
+
+.bold-normal {
+  font-weight: $font-weight-base !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}

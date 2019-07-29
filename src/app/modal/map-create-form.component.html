@@ -1,0 +1,6 @@
+<form class="ui form" [formGroup]="formGroup">
+    <div class="field" [class.error]="submitted && f.name.errors">
+        <label>Map</label>
+        <input type="text" formControlName="name" placeholder="Map name">
+    </div>
+</form>

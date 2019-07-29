@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div class="pushable" id="layout-content">
+    <div app-ui-sidebar class="ui left overlay sidebar inverted vertical menu"
+         id="side-bar"
+         data-context="#layout-content"
+         data-transition="overlay">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div class="pusher">
+        <div class="ui main container">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="ui grid">
+    <app-ui-dropdown class="result-segment-more">
+        <div class="ui dropdown">
+            <i class="ellipsis horizontal icon"></i>
+            <div class="menu">
+                <div class="ui mini message">
+                    <p><i class="pencil alternate icon"></i>{{result.creator.nick}}</p>
+                    <p><i class="calendar plus outline icon"></i>{{result.createdAt | dateFormat:'YYYY-MM-DD HH:mm'}}
+                    </p>
+                    <p><i class="comment icon"></i>{{result.memo}}</p>
+                </div>
+            </div>
+        </div>
+    </app-ui-dropdown>
+    <div class="six wide column right aligned middle aligned">
+        <div class="ui list">
+            <div class="item">
+                <img appImgTribe [tribe]="shuffleResult.left.user.tribe" class="ui mini image right floated">
+                <div class="content">
+                    <h3 class="ui header">
+                        {{shuffleResult.left.user.nick}}
+                        <div class="sub header bold-normal">
+                            <span class="ui grey text">{{shuffleResult.left.userData.tier}}</span>
+                        </div>
+                    </h3>
+                </div>
+                <p class="result-segment-elo">
+                    {{mathElo(shuffleResult.left) | number}}
+                    <span class="grow" [ngClass]="shuffleResult.left.direction">
+                        <i class="long arrow alternate icon" [ngClass]="shuffleResult.left.direction"></i>
+                        {{result.occurElo}}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="four wide column center aligned">
+        <div class="ui items">
+            <div class="item">
+                <div class="content">
+                    <div class="extra">
+                        {{result.resultedAt | dateFormat:'MMM DD' }}
+                    </div>
+                    <div class="description">
+                        <div class="ui large horizontal divided list">
+                            <div class="item" [ngClass]="shuffleResult.left.result">{{shuffleResult.left.result}}</div>
+                            <div class="item"
+                                 [ngClass]="shuffleResult.right.result">{{shuffleResult.right.result}}</div>
+                        </div>
+                    </div>
+                    <div class="description" [attr.data-tooltip]="setCurrent + ' set, best of ' + setTotal"
+                         data-position="top center"
+                         data-variation="mini"
+                         data-inverted="">
+                        <app-ui-progress>
+                            <div class="ui tiny progress" [attr.data-value]="setCurrent" [attr.data-total]="setTotal">
+                                <div class="bar"></div>
+                                <div class="label">{{result.map.name}}</div>
+                            </div>
+                        </app-ui-progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="six wide column left aligned middle aligned">
+        <div class="ui list">
+            <div class="item">
+                <img appImgTribe [tribe]="shuffleResult.right.user.tribe" class="ui mini image left floated">
+                <div class="content right">
+                    <h3 class="ui header">
+                        {{shuffleResult.right.user.nick}}
+                        <div class="sub header bold-normal">
+                            <span class="ui grey text">{{shuffleResult.right.userData.tier}}</span>
+                        </div>
+                    </h3>
+                </div>
+                <p class="result-segment-elo">
+                    <span class="grow" [ngClass]="shuffleResult.right.direction">
+                        {{result.occurElo}}
+                        <i class="long arrow alternate icon" [ngClass]="shuffleResult.right.direction"></i>
+                    </span>
+                    {{mathElo(shuffleResult.right) | number}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

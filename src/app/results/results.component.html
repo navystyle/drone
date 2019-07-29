@@ -1,0 +1,61 @@
+<div class="ui grid stackable">
+    <div class="four wide column" style="padding-right: 0;">
+        <app-results-filter #resultsFilter
+                            (success)="loadResults($event)"></app-results-filter>
+    </div>
+    <div class="twelve wide column" id="context">
+        <div class="ui segment"
+             [class.loading]="loading">
+            <div class="ui active inverted dimmer low-zindex"
+                 *ngIf="!auth.users.length || !authService.isAuthenticated()">
+                <h4 class="ui icon header">
+                    <i class="exclamation circle icon"></i>
+                    <div class="content">
+                        Forbidden
+                        <div class="sub header" *ngIf="!auth.users.length">Please Create User to enter match results.</div>
+                        <div class="sub header" *ngIf="!authService.isAuthenticated()">
+                            Please <a (click)="authService.login()" class="cp">sign in</a> to enter match results.
+                        </div>
+                    </div>
+                </h4>
+            </div>
+            <app-result-create-form #resultCreateForm
+                                    (success)="resultCreateForm.reset();resultsFilter.reset();loadResults()"></app-result-create-form>
+        </div>
+        <div class="ui segment" *ngIf="loading">
+            <div class="ui placeholder">
+                <div class="paragraph">
+                    <div class="line" *ngFor="let item of 6 | createArrayNumber"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui segments" *ngIf="!loading">
+            <div class="ui segment" *ngIf="!results.length">
+                <div class="ui active inverted dimmer">
+                    <h4 class="ui icon header">
+                        <i class="battery empty icon"></i>
+                        <div class="content">
+                            There are no matches.
+                            <div class="sub header">Please make user & start playing the game.</div>
+                        </div>
+                    </h4>
+                </div>
+                <div class="ui fluid placeholder">
+                    <div class="image header">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="paragraph">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui segment" *ngFor="let result of results;">
+                <app-results-segment [result]="result"></app-results-segment>
+            </div>
+        </div>
+    </div>
+</div>

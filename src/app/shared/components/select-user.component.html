@@ -1,0 +1,19 @@
+<app-ui-dropdown #dropdown (change)="onChange($event.target['value'])">
+    <div class="ui fluid selection dropdown" [ngClass]="{'search': search}">
+        <input type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">User</div>
+        <div class="menu">
+            <ng-container *ngFor="let result of results | keyvalue">
+                <div class="header">
+                    {{result['key']}}
+                </div>
+                <div class="item" *ngFor="let user of result['value']"
+                     [attr.data-value]="user['_id']">
+                    <img appImgTribe [tribe]="user['tribe']" class="ui mini image">
+                    {{user['nick']}}
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</app-ui-dropdown>

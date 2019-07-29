@@ -1,0 +1,137 @@
+<div class="ui stackable grid">
+    <div class="row">
+        <div class="column">
+            <div class="ui secondary pointing menu none-scrollbar scroll-x">
+                <div class="right menu">
+                    <a class="ui item" [routerLink]="['/rankings']" [class.active]="!tier">
+                        Global
+                    </a>
+                    <a class="ui item" *ngFor="let label of LABEL_TIER_LIST"
+                       [routerLink]="['/rankings']"
+                       [queryParams]="{tier: label.Value}"
+                       [class.active]="tier === label.Value">
+                        {{label.Text}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="nine wide column" style="padding-right: 0;" #usersRank>
+            <div class="ui basic segment no-padding">
+                <table class="ui single line striped unstackable compact table ranking-table">
+                    <tbody *ngIf="loading">
+                    <tr>
+                        <td>
+                            <div class="ui basic segment">
+                                <div class="ui active inverted dimmer">
+                                    <div class="ui slow blue double loader"></div>
+                                </div>
+                                <div class="ui fluid placeholder">
+                                    <div class="image header">
+                                        <div class="line"></div>
+                                        <div class="line"></div>
+                                    </div>
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                        <div class="line"></div>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="!loading && !users.length">
+                        <tr>
+                            <td>
+                                <div class="ui basic segment">
+                                    <div class="ui active inverted dimmer">
+                                        <h4 class="ui icon header">
+                                            <i class="battery empty icon"></i>
+                                            <div class="content">
+                                                There are no users.
+                                                <div class="sub header">Please make user & start playing the game.</div>
+                                            </div>
+                                        </h4>
+                                    </div>
+                                    <div class="ui fluid placeholder">
+                                        <div class="image header">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                        <div class="paragraph">
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                            <div class="line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!loading && users.length">
+                    <tr *ngFor="let user of users; let i = index" [class.blue]="user._id === selectUser._id" (click)="selectUser = user">
+                        <td class="one wide"><span class="ui black text">{{user.rank}}</span> <i class="icon trophy rank-top" *ngIf="user.rank === 1"></i></td>
+                        <td class="six wide ellipsis">
+                            <div class="ui horizontal list">
+                                <div class="item">
+                                    <img appImgTribe [tribe]="user.tribe" class="ui ranking-tribe image">
+                                    <div class="content">
+                                        <h6 class="ui header">
+                                            <span class="ui grey bold-normal text">{{user.tier | findText: 'tier'}}</span>
+                                            <div class="sub header">
+                                                <span class="ui text nick">{{user.nick}}</span>
+                                            </div>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="seven wide center aligned">
+                            <span class="ui grey small text" *ngIf="user.resultData.total === 0">
+                                <i class="eye slash outline icon"></i> no games
+                            </span>
+                            <ng-container *ngIf="user.resultData.total > 0 && innerWidth > mobileScreenWidth">
+                                <app-ui-progress [defaults]="{label: 'bars'}">
+                                    <div class="ui multiple small progress rankings"
+                                         [attr.data-value]="user.resultData.win + ',' + user.resultData.lose"
+                                         [attr.data-total]="user.resultData.total">
+                                        <div class="blue bar">
+                                            <div class="progress" style="left: .5em;">{{user.resultData.win | number}}</div>
+                                        </div>
+                                        <div class="red bar">
+                                            <div class="progress">{{user.resultData.lose | number}}</div>
+                                        </div>
+                                    </div>
+                                </app-ui-progress>
+                            </ng-container>
+
+                            <ng-container *ngIf="user.resultData.total > 0 && innerWidth <= mobileScreenWidth">
+                                <span class="ui blue text">{{user.resultData.win | number}}</span>
+                                <span class="ui grey text"> / </span>
+                                <span class="ui red text">{{user.resultData.lose | number}}</span>
+                            </ng-container>
+                        </td>
+                        <td class="one wide center aligned">
+                            <span class="ui grey text">
+                                {{user.getRate()}}
+                            </span>
+                        </td>
+                        <td class="one wide right aligned">
+                            <span class="ui black text">
+                                {{user.elo | number}}
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="seven wide column" *ngIf="users.length">
+            <div class="ui segment">
+                <app-ranking-user [user]="selectUser"></app-ranking-user>
+            </div>
+        </div>
+    </div>
+</div>

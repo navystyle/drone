@@ -1,0 +1,107 @@
+.ui.secondary.pointing.menu {
+  border-bottom: 0;
+}
+
+.ui.secondary.pointing.menu .active.item {
+  background-color: transparent;
+  box-shadow: none;
+  border-color: #1b1c1d;
+  font-weight: 700;
+  color: rgba(0, 0, 0, .95);
+}
+
+.ui.secondary.pointing.menu .item {
+  border-bottom-width: 0;
+  border-top-color: transparent;
+  border-top-style: solid;
+  border-top-width: 2px;
+  color: $grey;
+}
+
+.none-scrollbar {
+  -ms-overflow-style: none; // IE에서 스크롤바 감춤
+  &::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+  }
+}
+
+.scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.ui.grid > .row {
+  padding-bottom: 0;
+  &.pt-5 {
+    padding-top: 5px;
+  }
+  &.pt-0 {
+    padding-top: 0px;
+  }
+}
+
+.ui.progress.rankings {
+  margin: 0 !important;
+}
+
+.ranking-tribe {
+  width: 25px;
+}
+
+.ranking-tribe-rate {
+  width: 20px;
+  display: inline-block !important;
+}
+
+.ranking-profile {
+  float: left;
+  bottom: 50px;
+  width: 60px;
+}
+
+strong.ranking-nick {
+  position: absolute;
+  left: 30px;
+  top: 10px;
+}
+
+h4.ranking-number {
+  float: left;
+  line-height: 32px;
+  font-size: 32px;
+  margin-right: 4px;
+  margin-bottom: 5px;
+}
+
+h4.ui.header {
+  &.ranking-header {
+    display: inline-block !important;
+    font-weight: $font-weight-light !important;
+    letter-spacing: -0.5px;
+    text-align: left;
+  }
+
+  > .sub.header {
+    font-size: 8px;
+    color: $grey;
+  }
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+i.icon {
+  &.rank-top {
+    color: gold;
+  }
+}
+
+div.ranking-rate {
+  line-height: 16px;
+}
+
+table.ranking-table tr {
+  cursor: pointer;
+}

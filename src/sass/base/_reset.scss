@@ -1,0 +1,23 @@
+.ui.segments, .ui.segment {
+  box-shadow: none;
+}
+
+.ui.disabled.segment {
+  position: relative;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ui.dimmer.low-zindex {
+  z-index: 99 !important;
+}
+
+.toast {
+  @include isMobile {
+    word-break: break-word;
+  }
+}
+
+.ui.form .fields:not(.grouped):not(.inline) .field:not(:only-child) .ui.toggle.checkbox {
+  margin-top: 7px;
+}

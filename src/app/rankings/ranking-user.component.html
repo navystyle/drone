@@ -1,0 +1,80 @@
+<div class="ui active inverted dimmer" *ngIf="loading">
+    <div class="ui slow blue double loader"></div>
+</div>
+<div class="ui grid">
+    <div class="row">
+        <div class="sixteen wide column right aligned">
+            <h6 class="ui grey header">ELO <span class="ui black text">{{user.elo | number}}</span></h6>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="sixteen wide column right aligned">
+            <div class="ui horizontal list">
+                <div class="item">
+                    <h4 class="ranking-number">{{user.rank}}</h4>
+                    <h4 class="ui header ranking-header">
+                        Global
+                        <div class="sub header">RANKING</div>
+                    </h4>
+                </div>
+
+                <div class="item">
+                    <h4 class="ranking-number">{{user.tierRank}}</h4>
+                    <h4 class="ui header ranking-header">
+                        {{user.tier | findText: 'tier'}}
+                        <div class="sub header">RANKING</div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-0">
+        <div class="sixteen wide column right aligned">
+            <img appImgTribe [tribe]="user.tribe" class="ui ranking-profile image">
+            <strong class="ranking-nick">{{user.nick}}</strong>
+            <div class="ranking-rate">
+                <span class="ui blue text">{{user.resultData && user.resultData.win.count | number}}</span>W
+                <span class="ui grey text"> / </span>
+                <span class="ui red text">{{user.resultData && user.resultData.lose.count | number}}</span>L<br>
+                <span class="ui mini black text">{{user.getRate()}}</span>
+            </div>
+
+            <table class="ui small unstackable very basic table">
+                <thead>
+                <tr>
+                    <th>Statistics</th>
+                    <th class="center aligned">vs <img appImgTribe [tribe]="'terran'" class="ui ranking-tribe-rate image"></th>
+                    <th class="center aligned">vs <img appImgTribe [tribe]="'zerg'" class="ui ranking-tribe-rate image"></th>
+                    <th class="center aligned">vs <img appImgTribe [tribe]="'protoss'" class="ui ranking-tribe-rate image"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Win rate</td>
+                    <td class="center aligned">{{user.getRate('vsT')}}</td>
+                    <td class="center aligned">{{user.getRate('vsZ')}}</td>
+                    <td class="center aligned">{{user.getRate('vsP')}}</td>
+                </tr>
+                <tr>
+                    <td>Matches</td>
+                    <td class="center aligned">
+                        <span class="ui blue text">{{user.resultData && user.resultData.win.vsT | number}}</span>
+                        <span class="ui grey text"> / </span>
+                        <span class="ui red text">{{user.resultData && user.resultData.lose.vsT | number}}</span>
+                    </td>
+                    <td class="center aligned">
+                        <span class="ui blue text">{{user.resultData && user.resultData.win.vsZ | number}}</span>
+                        <span class="ui grey text"> / </span>
+                        <span class="ui red text">{{user.resultData && user.resultData.lose.vsZ | number}}</span>
+                    </td>
+                    <td class="center aligned">
+                        <span class="ui blue text">{{user.resultData && user.resultData.win.vsP | number}}</span>
+                        <span class="ui grey text"> / </span>
+                        <span class="ui red text">{{user.resultData && user.resultData.lose.vsP | number}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

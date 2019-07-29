@@ -1,0 +1,79 @@
+<div class="ui text fixed menu">
+    <div class="ui container">
+        <a class="item sidebar header-menu" onclick="$('#side-bar').sidebar('toggle')">
+            <i class="sidebar icon"></i>
+            Menu
+        </a>
+        <a routerLink="/main" class="header item header-menu">
+            3050 CLAN
+        </a>
+        <a routerLink="/users" routerLinkActive="active" class="item header-menu">Users</a>
+        <a routerLink="/results" routerLinkActive="active" class="item header-menu">Results</a>
+        <a routerLink="/rankings" routerLinkActive="active" class="item header-menu">Rankings</a>
+        <div class="right menu">
+            <a class="item" (click)="authService.login()" *ngIf="!authService.isAuthenticated()">Log in</a>
+            <app-ui-dropdown *ngIf="authService.isAuthenticated()">
+                <div class="ui inline dropdown top right pointing item">
+                    <div class="text">
+                        <img class="ui avatar image" src="{{auth.picture}}">
+                        {{auth.name}}
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="header">users</div>
+                        <div class="divider"></div>
+                        <div class="ui card small" *ngFor="let user of auth.users; let i = index">
+                            <div class="content">
+                                <div class="elo">
+                                    <div class="ui mini circular label">
+                                        ELO
+                                    </div>
+                                    {{user.elo | number}}
+                                </div>
+                                <!--<i class="right floated close link icon" (click)="deleteUser(user, i)"></i>-->
+                                <div class="ui horizontal list">
+                                    <div class="disabled item">
+                                        <img appImgTribe [tribe]="user.tribe" class="ui mini header-tribe-img image">
+                                        <div class="content">
+                                            <h6 class="ui header">
+                                                <span class="ui grey bold-normal text">{{user.tier}}</span>
+                                                <div class="sub header">
+                                                    <span class="ui text" style="font-size: 18px;">{{user.nick}}</span>
+                                                </div>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="ui center aligned icon header" *ngIf="auth.users && auth.users.length < 3">
+                            <i class="plus link blue icon" (click)="userCreateModal.show()"></i>
+                            You can create {{3 - auth.users.length}} more user.
+                        </h6>
+
+                        <div class="divider"></div>
+                        <a class="item" (click)="authService.logout()" style="align-self: unset;">Logout</a>
+                    </div>
+                </div>
+            </app-ui-dropdown>
+        </div>
+    </div>
+</div>
+
+<app-ui-modal #userCreateModal
+        [class]="'overlay fullscreen'"
+        (approve)="userCreateForm.submit()"
+        (hidden)="userCreateForm.reset()"
+        (shown)="userCreateForm.setAuth(auth)">
+<!--    [notUseApprove]="true"-->
+<!--    (approve)="test()"
+        (shown)="test()">-->
+    <div class="ui header">
+        create User
+    </div>
+    <div class="content scrolling">
+        <app-user-create-form #userCreateForm
+            (success)="userCreateModal.hide();setUser($event);"></app-user-create-form>
+    </div>
+</app-ui-modal>

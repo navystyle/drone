@@ -1,0 +1,32 @@
+// typography
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean');
+$font-family: 'Noto Sans KR', sans-serif;
+$line-height-base: 1.5;
+$font-weight-base:  400;
+$font-weight-bold:  700;
+$font-weight-light: 300;
+$font-size-base: 12px;
+$mobile-width: 768px;
+
+// colors
+$body-color: #343434;
+$red            : #B03060;
+$orange         : #FE9A76;
+$yellow         : #FFD700;
+$olive          : #32CD32;
+$green          : #016936;
+$teal           : #008080;
+$blue           : #0E6EB8;
+$violet         : #EE82EE;
+$purple         : #B413EC;
+$pink           : #FF1493;
+$brown          : #A52A2A;
+$grey           : #A0A0A0;
+$black          : #000000;
+$primary        : #2185D0;
+
+@mixin isMobile {
+  @media (max-width: #{$mobile-width}) {
+    @content;
+  }
+}

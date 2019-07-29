@@ -1,0 +1,100 @@
+.ui.slider.checkbox {
+  margin-top: 10px;
+}
+
+.ui.form .field > label {
+  &.label-winner {
+    color: $blue;
+  }
+
+  &.label-loser {
+    color: $red;
+  }
+}
+
+.ui.form .field .ui.input > input {
+  &.input-winner {
+    border-left: 4px solid $blue;
+  }
+
+  &.input-loser {
+    border-left: 4px solid $red;
+  }
+
+  &.input-creator {
+    border-left: 4px solid $black;
+  }
+}
+
+.ui.dropdown > .text > .image {
+  margin-right: 0.2rem;
+}
+
+.ui.dropdown .menu > .item > .image, .ui.dropdown .menu > .item > img {
+  margin-right: 0.2rem;
+}
+
+a.add-map {
+  font-weight: $font-weight-base;
+  float: right;
+}
+
+.top-right-attched {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: $blue;
+}
+
+.win {
+  font-weight: $font-weight-bold;
+  color: $green;
+}
+
+.lose {
+  font-weight: $font-weight-light;
+  color: $grey;
+}
+
+.ui.large.list, .ui.large.horizontal.list>.item {
+  @include isMobile {
+    font-size:.78571429em
+  }
+}
+
+.ui.progress>.label {
+  font-size: 0.9em;
+  font-weight: $font-weight-base;
+}
+
+p.result-segment-elo {
+  margin-top: 5px !important;
+  span.grow {
+    font-size: 11px;
+    font-weight: $font-weight-bold;
+    i.icon {
+      margin: 0;
+    }
+
+    &.up {
+      color: $blue;
+    }
+    &.down {
+      color: $red;
+    }
+  }
+}
+
+.result-segment-more {
+  position: absolute;
+  top: 8.5px;
+  right: 0;
+  z-index: 1;
+}
+
+.ui.list>.item>img.image+.content {
+  min-width: 50px;
+  &.right {
+    padding: 0 .5em 0 0;
+  }
+}

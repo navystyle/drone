@@ -1,0 +1,60 @@
+<div class="ui basic segment" *ngIf="!users.length">
+    <div class="ui active inverted dimmer" *ngIf="loading">
+        <div class="ui slow blue double loader"></div>
+    </div>
+    <div class="ui active inverted dimmer" *ngIf="!loading">
+        <h4 class="ui icon header">
+            <i class="battery empty icon"></i>
+            <div class="content">
+                There are no users.
+                <div class="sub header">Please make user</div>
+            </div>
+        </h4>
+    </div>
+    <div class="ui fluid placeholder">
+        <div class="image header">
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="paragraph">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+</div>
+<div class="ui five doubling cards" *ngIf="users.length">
+    <div class="card" *ngFor="let user of users">
+        <div class="content">
+            <div class="ui centered grid">
+                <div class="row" style="padding-bottom: 0;">
+                    <img appImgTribe [tribe]="user.tribe" class="ui image">
+                </div>
+            </div>
+            <h1 class="ui center aligned header">
+                {{user.nick}}
+                <div class="sub header">{{user.name}}</div>
+            </h1>
+            <div class="ui divider"></div>
+            <div class="ui small feed">
+                <div class="event">
+                    <div class="content">
+                        <div class="summary">
+                            <span>battleCode</span> {{user.contact?.battleCode}}<br>
+                            <span>phone</span> {{user.contact?.phone}}<br>
+                            <span>kakaoId</span> {{user.contact?.kakaoId}}<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="extra content">
+            <span class="left floated">
+                {{user.tier}}
+            </span>
+            <span class="right floated">
+                ELO <b>{{user.elo | number}}</b>
+            </span>
+        </div>
+    </div>
+</div>

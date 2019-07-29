@@ -1,0 +1,60 @@
+<div class="ui segments sticky">
+    <div class="ui segment">
+        <i class="filter icon"></i>
+        Filter
+
+        <div class="top-right-attched cp" (click)="reset()" style="margin: 13px 13px 0 0;">
+            reset
+            <i class="icon redo cp"></i>
+        </div>
+    </div>
+    <div class="ui segment">
+        <form class="ui small form" [formGroup]="formGroup">
+            <div class="field">
+                <label>User</label>
+                <app-select-user #selectUser
+                                 [search]="true"
+                                 (changed)="setUser($event)"></app-select-user>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Start</label>
+                    <app-ui-datepicker placeholder="Start"
+                                       formControlName="startResultedAt"
+                                       calendarId="date-started-on"
+                                       [settings]="{endCalendar: '#date-ended-on'}"></app-ui-datepicker>
+                </div>
+                <div class="field">
+                    <label>End</label>
+                    <app-ui-datepicker placeholder="End"
+                                       formControlName="endResultedAt"
+                                       calendarId="date-ended-on"
+                                       [settings]="{startCalendar: '#date-started-on'}"></app-ui-datepicker>
+                </div>
+            </div>
+            <div class="field">
+                <label>Map</label>
+                <app-ui-select formControlName="map"
+                               [search]="true"
+                               [placeholder]="'Map'">
+                    <option value="{{map._id}}" *ngFor="let map of maps">{{map.name}}</option>
+                </app-ui-select>
+            </div>
+            <div class="field" formGroupName="tier">
+                <label>Tier</label>
+                <div class="field" *ngFor="let label of LABEL_TIER_LIST">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden" formControlName="{{label.Value}}">
+                        <label>{{label.Text}}</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="ui clearing segment">
+        <button class="ui right floated small icon button" (click)="submit()">
+            <i class="icon search"></i>
+            search
+        </button>
+    </div>
+</div>

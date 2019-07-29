@@ -1,0 +1,42 @@
+.ui.text.fixed.menu {
+  box-shadow: none;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 13px 0;
+  .item {
+    img.logo {
+      margin-right: 1.5em;
+    }
+  }
+}
+
+.ui.card.small {
+  margin: 10px;
+
+  .content .elo {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 12px;
+  }
+}
+
+.header-tribe-img {
+  width: 30px !important;
+}
+
+.ui.text.menu {
+  .header-menu {
+    display: block;
+    &.sidebar {
+      display: none;
+    }
+    @include isMobile {
+      display: none;
+      &.sidebar {
+        display: block;
+      }
+    }
+  }
+}

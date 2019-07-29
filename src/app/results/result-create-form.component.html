@@ -1,0 +1,84 @@
+<form class="ui small form" [formGroup]="formGroup" (ngSubmit)="submit()">
+    <h4 class="ui header">
+        Results
+    </h4>
+
+    <div class="top-right-attched cp" (click)="reset()">
+        reset
+        <i class="icon redo cp"></i>
+    </div>
+    <div class="fields">
+        <div class="three wide field" [class.error]="submitted && f.creator.errors">
+            <label>Creator</label>
+            <app-select-user #selectCreator type="own"
+                             [default]="true"
+                             (changed)="setCreator($event)"></app-select-user>
+
+        </div>
+        <div class="three wide field" [class.error]="submitted && f.resultedAt.errors">
+            <label>Result Date</label>
+            <app-ui-datepicker placeholder="Result Date"
+                               formControlName="resultedAt"></app-ui-datepicker>
+        </div>
+        <div class="ten wide field" formGroupName="set">
+            <label>Set Games</label>
+            <div class="fields" style="margin-bottom: 0;">
+                <div class="field">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden" formControlName="isSet">
+                    </div>
+                </div>
+                <div class="field" *ngIf="formGroup.get('set.isSet').value">
+                    <app-ui-select formControlName="total">
+                        <option value="3">3 Games</option>
+                        <option value="5">5 Games</option>
+                    </app-ui-select>
+                </div>
+                <div class="field" *ngIf="formGroup.get('set.isSet').value">
+                    <app-ui-select formControlName="current">
+                        <option value="{{v}}" *ngFor="let v of formGroup.get('set.total').value || 3 | createArrayNumber">{{v}} Set</option>
+                    </app-ui-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fields">
+        <div class="three wide field" [class.error]="submitted && f.winner.errors">
+            <label class="label-winner">Winner</label>
+            <app-select-user #selectWinner
+                             [search]="true"
+                             (changed)="setWinner($event)"></app-select-user>
+        </div>
+        <div class="three wide field" [class.error]="submitted && f.loser.errors">
+            <label class="label-loser">Loser</label>
+            <app-select-user #selectLoser
+                             [search]="true"
+                             (changed)="setLoser($event)"></app-select-user>
+        </div>
+        <div class="ten wide field" [class.error]="submitted && f.map.errors">
+            <label>
+                Map
+                <a class="cp add-map" (click)="mapCreateModal.show()">+add</a>
+            </label>
+            <app-ui-select formControlName="map"
+                           [search]="true"
+                           [placeholder]="'Map'">
+                <option value="{{map._id}}" *ngFor="let map of maps">{{map.name}}</option>
+            </app-ui-select>
+        </div>
+    </div>
+    <div class="field">
+        <label>Memo</label>
+        <textarea rows="2" formControlName="memo"></textarea>
+    </div>
+    <button class="ui small button" type="submit">submit</button>
+</form>
+
+<app-ui-modal #mapCreateModal
+              (approve)="mapCreateForm.submit()"
+              (hidden)="mapCreateForm.reset()">
+    <div class="content">
+        <app-map-create-form #mapCreateForm
+                             (success)="mapCreateModal.hide();setMap();"></app-map-create-form>
+    </div>
+</app-ui-modal>
