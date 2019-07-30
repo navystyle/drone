@@ -4,7 +4,7 @@ import {Directive, HostBinding, Input, OnChanges} from '@angular/core';
     selector: '[appImgTribe]'
 })
 export class ImgTribeDirective implements OnChanges {
-    @HostBinding('src') imgSrc = '/assets/img/random.png';
+    @HostBinding('src') imgSrc = '/assets/img/default.png';
 
     @Input() tribe: string;
 

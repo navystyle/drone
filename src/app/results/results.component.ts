@@ -16,7 +16,9 @@ export class ResultsComponent implements OnInit {
 
     page = 1;
     limit = 10;
+    total: number;
     finish = false;
+    filters: any = {};
 
     loading = false;
 
@@ -25,10 +27,15 @@ export class ResultsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.loading = true;
         this.authService.auth.subscribe(auth => {
             this.auth = new Auth(auth);
         });
+
+        await this.load();
+    }
+
+    private async load() {
+        this.loading = true;
 
         try {
             await this.loadResults();
@@ -40,17 +47,25 @@ export class ResultsComponent implements OnInit {
         }
     }
 
-    async loadResults(params?: any) {
+    async init(params?: any) {
         this.results = [];
-        try {
-            params = this.serialize(params);
-            params.page = this.page;
-            params.limit = this.limit;
+        this.page = 1;
+        this.filters = params;
+        await this.load();
+    }
 
-            const response = await this.resultService.getList(params).toPromise();
+    async loadResults() {
+        try {
+            this.filters = this.serialize(this.filters);
+            this.filters.page = this.page;
+            this.filters.limit = this.limit;
+
+            const response = await this.resultService.getList(this.filters).toPromise();
             for (const result of response.items) {
                 this.results.push(new Result(result));
             }
+            this.finish = response.finish;
+            this.total = response.total;
             return Promise.resolve();
         } catch (e) {
             return Promise.reject(e);
@@ -58,8 +73,8 @@ export class ResultsComponent implements OnInit {
     }
 
     async more() {
-        // todo infinity scroll 구현
-        console.log('more');
+        this.page++;
+        await this.load();
     }
 
     serialize(obj: any = {}) {

@@ -1,7 +1,7 @@
 <div class="ui grid stackable">
     <div class="four wide column" style="padding-right: 0;">
         <app-results-filter #resultsFilter
-                            (success)="loadResults($event)"></app-results-filter>
+                            (success)="init($event)"></app-results-filter>
     </div>
     <div class="twelve wide column">
         <div class="ui segment"
@@ -20,18 +20,19 @@
                 </h4>
             </div>
             <app-result-create-form #resultCreateForm
-                                    (success)="resultCreateForm.reset();resultsFilter.reset();loadResults()"></app-result-create-form>
-        </div>
-        <div class="ui segment" *ngIf="loading">
-            <div class="ui placeholder">
-                <div class="paragraph">
-                    <div class="line" *ngFor="let item of 6 | createArrayNumber"></div>
-                </div>
-            </div>
+                                    (success)="resultCreateForm.reset();resultsFilter.reset();init()"></app-result-create-form>
         </div>
 
-        <div class="ui segments" *ngIf="!loading">
-            <div class="ui segment" *ngIf="!results.length">
+        <div class="ui segments">
+            <div class="ui segment" *ngIf="loading">
+                <div class="ui placeholder">
+                    <div class="paragraph">
+                        <div class="line" *ngFor="let item of 6 | createArrayNumber"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui segment" *ngIf="!loading && !results.length">
                 <div class="ui active inverted dimmer">
                     <h4 class="ui icon header">
                         <i class="battery empty icon"></i>
@@ -56,6 +57,13 @@
             <div class="ui segment" *ngFor="let result of results;">
                 <app-results-segment [result]="result"></app-results-segment>
             </div>
+        </div>
+
+        <div class="ui center aligned basic segment no-padding" *ngIf="!finish">
+            <button class="fluid ui small button" (click)="more()" [class.loading]="loading">
+                <i class="arrow down icon"></i>
+                more ({{results.length}}/{{total}})
+            </button>
         </div>
     </div>
 </div>
