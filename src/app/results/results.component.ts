@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../core/services/auth.service';
 import {Auth} from '../core/models/auth';
 import {Result} from '../core/models/result';
@@ -10,20 +10,15 @@ declare const $: any;
     selector: 'app-results',
     templateUrl: './results.component.html'
 })
-export class ResultsComponent implements OnInit, AfterViewInit {
+export class ResultsComponent implements OnInit {
     auth: Auth = new Auth;
     results: Result[] = [];
 
-    innerWidth: number;
-    mobileScreenWidth = 767;
+    page = 1;
+    limit = 10;
+    finish = false;
 
     loading = false;
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event: any) {
-        this.innerWidth = event.target['innerWidth'];
-        this.initSticky();
-    }
 
     constructor(public authService: AuthService,
                 private resultService: ResultService) {
@@ -49,14 +44,22 @@ export class ResultsComponent implements OnInit, AfterViewInit {
         this.results = [];
         try {
             params = this.serialize(params);
+            params.page = this.page;
+            params.limit = this.limit;
+
             const response = await this.resultService.getList(params).toPromise();
-            for (const result of response) {
+            for (const result of response.items) {
                 this.results.push(new Result(result));
             }
             return Promise.resolve();
         } catch (e) {
             return Promise.reject(e);
         }
+    }
+
+    async more() {
+        // todo infinity scroll 구현
+        console.log('more');
     }
 
     serialize(obj: any = {}) {
@@ -67,24 +70,5 @@ export class ResultsComponent implements OnInit, AfterViewInit {
         });
 
         return obj;
-    }
-
-    ngAfterViewInit(): void {
-        if (!this.innerWidth) {
-            this.innerWidth = window.innerWidth;
-        }
-
-        this.initSticky();
-    }
-
-    initSticky() {
-        if (this.innerWidth > this.mobileScreenWidth) {
-            $('.ui.sticky').sticky({
-                offset: 80,
-                context: '#context',
-            });
-        } else {
-            $('.ui.sticky').sticky('destroy');
-        }
     }
 }
