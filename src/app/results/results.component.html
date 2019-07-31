@@ -6,7 +6,7 @@
     <div class="twelve wide column">
         <div class="ui segment"
              [class.loading]="loading">
-            <div class="ui active inverted dimmer low-zindex"
+            <div class="ui active inverted dimmer z-index-99"
                  *ngIf="!auth.users.length || !authService.isAuthenticated()">
                 <h4 class="ui icon header">
                     <i class="exclamation circle icon"></i>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="ui segment" *ngIf="!loading && !results.length">
-                <div class="ui active inverted dimmer">
+                <div class="ui active inverted dimmer z-index-1">
                     <h4 class="ui icon header">
                         <i class="battery empty icon"></i>
                         <div class="content">
