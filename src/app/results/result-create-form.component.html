@@ -71,7 +71,7 @@
         <label>Memo</label>
         <textarea rows="2" formControlName="memo"></textarea>
     </div>
-    <button class="ui small button" type="submit">submit</button>
+    <button class="ui small button" type="submit" [class.loading]="loading">submit</button>
 </form>
 
 <app-ui-modal #mapCreateModal

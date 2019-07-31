@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../core/services/user.service';
 import {IMap} from '../core/models/map';
 import {MapService} from '../core/services/map.service';
@@ -23,6 +23,7 @@ export class ResultCreateFormComponent implements OnInit {
 
     maps: IMap[];
     submitted = false;
+    loading = false;
 
     formGroup: FormGroup = this.fb.group({
         'creator': ['', Validators.required],
@@ -97,6 +98,7 @@ export class ResultCreateFormComponent implements OnInit {
         this.selectLoser.reset();
         this.formGroup.reset();
         this.submitted = false;
+        this.loading = false;
     }
 
     async setMap() {
@@ -106,11 +108,13 @@ export class ResultCreateFormComponent implements OnInit {
     async submit() {
         this.submitted = true;
         if (this.formGroup.valid) {
+            this.loading = true;
             try {
                 const response = await this.resultService.post(this.formGroup.getRawValue()).toPromise();
                 this.success.emit(response);
                 this.toastService.success('Success created result!');
             } catch (e) {
+                this.loading = false;
                 throw e;
             }
         }

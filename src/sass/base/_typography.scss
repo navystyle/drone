@@ -9,8 +9,5 @@ body {
   overflow-x: hidden;
   min-width: 320px;
   background: #f0f1f5;
-}
-
-body ::-webkit-scrollbar {
   -webkit-overflow-scrolling: touch;
 }

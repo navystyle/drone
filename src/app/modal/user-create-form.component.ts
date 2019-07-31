@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Auth} from '../core/models/auth';
 import {AuthService} from '../core/services/auth.service';
 import {UserService} from '../core/services/user.service';
-import {User, LABEL_TIER_LIST, LABEL_TRIBE_LIST} from '../core/models/user';
+import {LABEL_TIER_LIST, LABEL_TRIBE_LIST} from '../core/models/user';
 import {ToastService} from '../core/services/toast.service';
 
 @Component({

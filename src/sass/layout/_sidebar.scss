@@ -13,3 +13,12 @@ body.pushable>.pusher {
 #side-bar {
   padding-top: 51px;
 }
+
+.pusher {
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+.pushable:not(body)>.pusher:after {
+  position: fixed;
+}
