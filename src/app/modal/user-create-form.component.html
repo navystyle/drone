@@ -1,14 +1,14 @@
 <form class="ui form" [formGroup]="formGroup">
     <h4 class="ui dividing header">Name</h4>
     <div class="two fields">
-        <div class="field" [class.error]="submitted && f.name.errors">
+        <div class="field required" [class.error]="submitted && f.name.errors">
             <label>Name</label>
-            <input type="text" formControlName="name" placeholder="Name">
+            <input type="text" formControlName="name" placeholder="박보검">
         </div>
-        <div class="field" [class.error]="submitted && f.nick.errors">
-            <label>Nick</label>
+        <div class="field required" [class.error]="submitted && f.nick.errors">
+            <label>ID</label>
             <div class="ui right labeled input">
-                <input type="text" formControlName="nick" placeholder="Nick" [(ngModel)]="nick" (ngModelChange)="nick=$event" [maxLength]="10">
+                <input type="text" formControlName="nick" placeholder="Red (아이디 앞 '3050_' 생략)" [(ngModel)]="nick" (ngModelChange)="nick=$event" [maxLength]="10">
                 <div class="ui basic label">
                     {{nick?.length > 10 ? 10 : nick?.length || 0}} / 10
                 </div>
@@ -33,14 +33,14 @@
         </div>
     </div>
     <div class="two fields">
-        <div class="field" [class.error]="submitted && f.tier.errors">
+        <div class="field required" [class.error]="submitted && f.tier.errors">
             <label>Tier</label>
             <app-ui-select formControlName="tier">
                 <option value="">Tier</option>
                 <option value="{{label.Value}}" *ngFor="let label of LABEL_TIER_LIST">{{label.Text}}</option>
             </app-ui-select>
         </div>
-        <div class="field" [class.error]="submitted && f.tribe.errors">
+        <div class="field required" [class.error]="submitted && f.tribe.errors">
             <label>Tribe</label>
             <app-ui-select formControlName="tribe">
                 <option value="">Tribe</option>
