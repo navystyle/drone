@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Auth} from '../core/models/auth';
 import {AuthService} from '../core/services/auth.service';
 import {UserService} from '../core/services/user.service';
-import {LABEL_TIER_LIST, LABEL_TRIBE_LIST} from '../core/models/user';
+import {LABEL_TIER_LIST, LABEL_TRIBE_LIST, User} from '../core/models/user';
 import {ToastService} from '../core/services/toast.service';
 
 @Component({
@@ -13,6 +13,7 @@ import {ToastService} from '../core/services/toast.service';
 export class UserCreateFormComponent {
 
     @Output() success: EventEmitter<any> = new EventEmitter<any>();
+    @Output() successUpdate: EventEmitter<any> = new EventEmitter<any>();
     auth: Auth;
     nick: string;
     submitted = false;
@@ -20,6 +21,7 @@ export class UserCreateFormComponent {
     LABEL_TRIBE_LIST = LABEL_TRIBE_LIST;
 
     formGroup: FormGroup = this.fb.group({
+        '_id': '',
         'auth0Sub': '',
         'name': ['', Validators.required],
         'nick': ['', Validators.required],
@@ -48,13 +50,23 @@ export class UserCreateFormComponent {
         this.formGroup.get('auth0Sub').setValue(this.auth.sub);
     }
 
+    setUser(user: User) {
+        this.formGroup.reset(user);
+    }
+
     async submit() {
         this.submitted = true;
         if (this.formGroup.valid) {
             try {
-                const response = await this.userService.post(this.formGroup.getRawValue()).toPromise();
-                this.success.emit(response);
-                this.toastService.success('Success created user!');
+                let response;
+                if (this.formGroup.get('_id').value) {
+                    response = await this.userService.update(this.formGroup.getRawValue()).toPromise();
+                    this.successUpdate.emit(response);
+                } else {
+                    response = await this.userService.post(this.formGroup.getRawValue()).toPromise();
+                    this.success.emit(response);
+                }
+                this.toastService.success('Success created/updated user!');
             } catch (e) {
                 if (e.error && e.error.code === 11000) {
                     this.f.nick.setErrors({'incorrect': true});

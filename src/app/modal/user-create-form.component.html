@@ -40,9 +40,11 @@
                 <option value="{{label.Value}}" *ngFor="let label of LABEL_TIER_LIST">{{label.Text}}</option>
             </app-ui-select>
         </div>
-        <div class="field required" [class.error]="submitted && f.tribe.errors">
+        <div class="field required" [class.error]="submitted && f.tribe.errors" [class.disabled]="!!f._id.value">
             <label>Tribe</label>
-            <app-ui-select formControlName="tribe">
+            <input value="{{f.tribe.value | findText: 'tribe'}} (종족 변경은 불가합니다. 종족 변경이 필요한 경우 아이디를 추가해주세요.)"
+                   readonly="" type="text" *ngIf="!!f._id.value">
+            <app-ui-select formControlName="tribe" *ngIf="!f._id.value">
                 <option value="">Tribe</option>
                 <option value="{{label.Value}}" *ngFor="let label of LABEL_TRIBE_LIST">{{label.Text}}</option>
             </app-ui-select>

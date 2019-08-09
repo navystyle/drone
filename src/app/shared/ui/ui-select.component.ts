@@ -6,7 +6,9 @@ declare const $: any;
 @Component({
     selector: 'app-ui-select',
     template: `
-        <select class="ui fluid dropdown" [attr.multiple]="multiple ? '' : null" [ngClass]="{'search': search}">
+        <select class="ui fluid dropdown" 
+                [attr.multiple]="multiple ? '' : null"
+                [ngClass]="{'search': search}">
             <option value="" *ngIf="placeholder">{{placeholder}}</option>
             <ng-content></ng-content>
         </select>

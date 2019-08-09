@@ -25,6 +25,11 @@ export class HeaderComponent implements OnInit {
         this.globalUsers = this.userService.getGlobalUsers();
     }
 
+    updateUser(user: User) {
+        // todo: 추후 유저만 업데이트
+        window.location.href = '/';
+    }
+
     setUser(user: User) {
         this.auth.users.push(user);
         this.globalUsers.push(new User(user));

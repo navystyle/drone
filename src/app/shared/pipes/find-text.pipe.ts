@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {LABEL_TIER_LIST} from '../../core/models/user';
+import {LABEL_TIER_LIST, LABEL_TRIBE_LIST} from '../../core/models/user';
 
 @Pipe({name: 'findText'})
 export class FindTextPipe implements PipeTransform {
@@ -8,6 +8,9 @@ export class FindTextPipe implements PipeTransform {
         switch (value && type) {
             case 'tier':
                 result = this.findItem(value, LABEL_TIER_LIST);
+                break;
+            case 'tribe':
+                result = this.findItem(value, LABEL_TRIBE_LIST);
                 break;
 
             default:

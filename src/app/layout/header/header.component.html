@@ -22,7 +22,8 @@
                     <div class="menu">
                         <div class="header">users</div>
                         <div class="divider"></div>
-                        <div class="ui card small" *ngFor="let user of auth.users; let i = index">
+                        <a class="ui card small" *ngFor="let user of auth.users; let i = index"
+                           (click)="userCreateModal.show();userCreateForm.setUser(user)">
                             <div class="content">
                                 <div class="elo">
                                     <div class="ui mini circular label">
@@ -45,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
                         <h6 class="ui center aligned icon header" *ngIf="auth.users && auth.users.length < 3">
                             <i class="plus link blue icon" (click)="userCreateModal.show()"></i>
@@ -62,18 +63,17 @@
 </div>
 
 <app-ui-modal #userCreateModal
-        [class]="'overlay fullscreen'"
-        (approve)="userCreateForm.submit()"
-        (hidden)="userCreateForm.reset()"
-        (shown)="userCreateForm.setAuth(auth)">
-<!--    [notUseApprove]="true"-->
-<!--    (approve)="test()"
-        (shown)="test()">-->
+              [class]="'overlay fullscreen'"
+              (approve)="userCreateForm.submit()"
+              (hidden)="userCreateForm.reset()"
+              (shown)="userCreateForm.setAuth(auth)">
+    <!--    [notUseApprove]="true"-->
     <div class="ui header">
-        create User
+        create/update User
     </div>
     <div class="content scrolling">
         <app-user-create-form #userCreateForm
-            (success)="userCreateModal.hide();setUser($event);"></app-user-create-form>
+                              (successUpdate)="userCreateModal.hide();updateUser($event);"
+                              (success)="userCreateModal.hide();setUser($event);"></app-user-create-form>
     </div>
 </app-ui-modal>
