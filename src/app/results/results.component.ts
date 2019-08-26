@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../core/services/auth.service';
 import {Auth} from '../core/models/auth';
 import {Result} from '../core/models/result';
 import {ResultService} from '../core/services/result.service';
+import {UiModalComponent} from '../shared/ui/ui-modal.component';
 
 declare const $: any;
 
@@ -11,6 +12,9 @@ declare const $: any;
     templateUrl: './results.component.html'
 })
 export class ResultsComponent implements OnInit {
+
+    @ViewChild(UiModalComponent) resultDeleteModal: UiModalComponent;
+
     auth: Auth = new Auth;
     results: Result[] = [];
 
@@ -72,9 +76,27 @@ export class ResultsComponent implements OnInit {
         }
     }
 
+    async delete(result: Result) {
+        if (this.hasPermission(result)) {
+            try {
+                await this.resultService.delete(result).toPromise();
+                await this.init(this.filters);
+            } catch (e) {
+                throw e;
+            }
+        } else {
+            this.resultDeleteModal.show();
+        }
+    }
+
     async more() {
         this.page++;
         await this.load();
+    }
+
+    private hasPermission(result: Result): boolean {
+        const users = this.auth.users.map(row => row._id);
+        return users.indexOf(result.creator._id) !== -1 ;
     }
 
     serialize(obj: any = {}) {

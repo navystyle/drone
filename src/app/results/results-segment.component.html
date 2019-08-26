@@ -1,13 +1,14 @@
-<div class="ui grid">
+<div class="ui grid result-segment">
     <app-ui-dropdown class="result-segment-more">
         <div class="ui dropdown">
             <i class="ellipsis horizontal icon"></i>
             <div class="menu">
-                <div class="ui mini message">
-                    <p><i class="pencil alternate icon"></i>{{result.creator.nick}}</p>
-                    <p><i class="calendar plus outline icon"></i>{{result.createdAt | dateFormat:'YYYY-MM-DD HH:mm'}}
-                    </p>
-                    <p><i class="comment icon"></i>{{result.memo}}</p>
+                <div class="header"><i class="pencil alternate icon"></i>{{result.creator.nick}}</div>
+                <div class="header"><i class="calendar plus outline icon"></i>{{result.createdAt | dateFormat:'YYYY-MM-DD HH:mm'}}</div>
+                <div class="header"><i class="comment icon"></i>{{result.memo}}</div>
+                <div class="divider"></div>
+                <div class="item" (click)="delete(result)" [class.disabled]="!authService.isAuthenticated()">
+                    <span class="ui text red"><i class="trash alternate icon"></i> 삭제</span>
                 </div>
             </div>
         </div>
@@ -48,7 +49,7 @@
                                  [ngClass]="shuffleResult.right.result">{{shuffleResult.right.result}}</div>
                         </div>
                     </div>
-                    <div class="description" [attr.data-tooltip]="setCurrent + ' set, best of ' + setTotal"
+                    <div class="description" [attr.data-tooltip]="setTotal + '경기 중 ' + setCurrent + ' 세트'"
                          data-position="top center"
                          data-variation="mini"
                          data-inverted="">

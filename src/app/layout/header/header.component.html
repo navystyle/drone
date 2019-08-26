@@ -2,16 +2,15 @@
     <div class="ui container">
         <a class="item sidebar header-menu" onclick="$('#side-bar').sidebar('toggle')">
             <i class="sidebar icon"></i>
-            Menu
         </a>
         <a routerLink="/main" class="header item header-menu">
             3050 CLAN
         </a>
-        <a routerLink="/users" routerLinkActive="active" class="item header-menu">Users</a>
-        <a routerLink="/results" routerLinkActive="active" class="item header-menu">Results</a>
-        <a routerLink="/rankings" routerLinkActive="active" class="item header-menu">Rankings</a>
+        <a routerLink="/users" routerLinkActive="active" class="item header-menu">선수</a>
+        <a routerLink="/results" routerLinkActive="active" class="item header-menu">경기결과</a>
+        <a routerLink="/rankings" routerLinkActive="active" class="item header-menu">랭킹</a>
         <div class="right menu">
-            <a class="item" (click)="authService.login()" *ngIf="!authService.isAuthenticated()">Log in</a>
+            <a class="item" (click)="authService.login()" *ngIf="!authService.isAuthenticated()">로그인</a>
             <app-ui-dropdown *ngIf="authService.isAuthenticated()">
                 <div class="ui inline dropdown top right pointing item">
                     <div class="text">
@@ -20,7 +19,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <div class="header">users</div>
+                        <div class="header">내 선수</div>
                         <div class="divider"></div>
                         <a class="ui card small" *ngFor="let user of auth.users; let i = index"
                            (click)="userCreateModal.show();userCreateForm.setUser(user)">
@@ -50,11 +49,11 @@
 
                         <h6 class="ui center aligned icon header" *ngIf="auth.users && auth.users.length < 3">
                             <i class="plus link blue icon" (click)="userCreateModal.show()"></i>
-                            You can create {{3 - auth.users.length}} more user.
+                            {{3 - auth.users.length}}명 더 추가 가능.
                         </h6>
 
                         <div class="divider"></div>
-                        <a class="item" (click)="authService.logout()" style="align-self: unset;">Logout</a>
+                        <a class="item" (click)="authService.logout()" style="align-self: unset;">로그아웃</a>
                     </div>
                 </div>
             </app-ui-dropdown>
@@ -69,7 +68,7 @@
               (shown)="userCreateForm.setAuth(auth)">
     <!--    [notUseApprove]="true"-->
     <div class="ui header">
-        create/update User
+        선수 등록/수정
     </div>
     <div class="content scrolling">
         <app-user-create-form #userCreateForm

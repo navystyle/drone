@@ -1,31 +1,31 @@
 <div class="ui segments">
     <div class="ui segment">
         <i class="filter icon"></i>
-        Filter
+        필터
 
         <div class="top-right-attched cp" (click)="reset()" style="margin: 13px 13px 0 0;">
-            reset
+            초기화
             <i class="icon redo cp"></i>
         </div>
     </div>
     <div class="ui segment">
         <form class="ui small form" [formGroup]="formGroup">
             <div class="field">
-                <label>User</label>
+                <label>선수</label>
                 <app-select-user #selectUser
                                  [search]="true"
                                  (changed)="setUser($event)"></app-select-user>
             </div>
             <div class="two fields">
                 <div class="field">
-                    <label>Start</label>
+                    <label>시작일</label>
                     <app-ui-datepicker placeholder="Start"
                                        formControlName="startResultedAt"
                                        calendarId="date-started-on"
                                        [settings]="{endCalendar: '#date-ended-on'}"></app-ui-datepicker>
                 </div>
                 <div class="field">
-                    <label>End</label>
+                    <label>종료일</label>
                     <app-ui-datepicker placeholder="End"
                                        formControlName="endResultedAt"
                                        calendarId="date-ended-on"
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="field">
-                <label>Map</label>
+                <label>맵</label>
                 <app-ui-select formControlName="map"
                                [search]="true"
                                [placeholder]="'Map'">
@@ -41,7 +41,7 @@
                 </app-ui-select>
             </div>
             <div class="field" formGroupName="tier">
-                <label>Tier</label>
+                <label>티어</label>
                 <div class="field" *ngFor="let label of LABEL_TIER_LIST">
                     <div class="ui checkbox">
                         <input type="checkbox" tabindex="0" class="hidden" formControlName="{{label.Value}}">
@@ -54,7 +54,7 @@
     <div class="ui clearing segment">
         <button class="ui right floated small icon button" (click)="submit()">
             <i class="icon search"></i>
-            search
+            검색
         </button>
     </div>
 </div>

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Result} from '../core/models/result';
-import {User} from '../core/models/user';
+import {AuthService} from '../core/services/auth.service';
 
 @Component({
     selector: 'app-results-segment',
@@ -9,6 +9,7 @@ import {User} from '../core/models/user';
 export class ResultsSegmentComponent implements OnInit {
 
     @Input() result: Result = new Result();
+    @Output() deleted: EventEmitter<any> = new EventEmitter<any>();
     shuffleResult: any = {
         left: {
             user: null,
@@ -24,7 +25,7 @@ export class ResultsSegmentComponent implements OnInit {
         },
     };
 
-    constructor() {
+    constructor(private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -67,6 +68,12 @@ export class ResultsSegmentComponent implements OnInit {
         }
 
         return data.userData.lastElo + this.result.occurElo;
+    }
+
+    async delete(result: Result) {
+        if (confirm('경기결과를 삭제하면 되돌릴 수 없습니다. 삭제하시겠습니까?\n삭제시 ELO 점수는 경기 직전 데이터로 변경됩니다.')) {
+            this.deleted.emit(result);
+        }
     }
 
     get setCurrent() {

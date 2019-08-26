@@ -1,12 +1,12 @@
 <form class="ui form" [formGroup]="formGroup">
-    <h4 class="ui dividing header">Name</h4>
+    <h4 class="ui dividing header">기본 정보</h4>
     <div class="two fields">
         <div class="field required" [class.error]="submitted && f.name.errors">
-            <label>Name</label>
+            <label>이름</label>
             <input type="text" formControlName="name" placeholder="박보검">
         </div>
         <div class="field required" [class.error]="submitted && f.nick.errors">
-            <label>ID</label>
+            <label>닉네임</label>
             <div class="ui right labeled input">
                 <input type="text" formControlName="nick" placeholder="Red (아이디 앞 '3050_' 생략)" [(ngModel)]="nick" (ngModelChange)="nick=$event" [maxLength]="10">
                 <div class="ui basic label">
@@ -15,43 +15,43 @@
             </div>
         </div>
     </div>
-    <h4 class="ui dividing header">Contact</h4>
+    <h4 class="ui dividing header">연락처 정보</h4>
     <div class="field" formGroupName="contact">
         <div class="three fields">
             <div class="field">
-                <label>BattleCode</label>
+                <label>배틀코드</label>
                 <input type="text" formControlName="battleCode" placeholder="#battle code">
             </div>
             <div class="field">
-                <label>KakaoId</label>
+                <label>카카오톡ID</label>
                 <input type="text" formControlName="kakaoId" placeholder="kakaoId">
             </div>
             <div class="field">
-                <label>Phone</label>
+                <label>핸드폰</label>
                 <input type="text" formControlName="phone" placeholder="phone">
             </div>
         </div>
     </div>
     <div class="two fields">
         <div class="field required" [class.error]="submitted && f.tier.errors">
-            <label>Tier</label>
+            <label>티어</label>
             <app-ui-select formControlName="tier">
-                <option value="">Tier</option>
+                <option value="">티어</option>
                 <option value="{{label.Value}}" *ngFor="let label of LABEL_TIER_LIST">{{label.Text}}</option>
             </app-ui-select>
         </div>
         <div class="field required" [class.error]="submitted && f.tribe.errors" [class.disabled]="!!f._id.value">
-            <label>Tribe</label>
+            <label>종족</label>
             <input value="{{f.tribe.value | findText: 'tribe'}} (종족 변경은 불가합니다. 종족 변경이 필요한 경우 아이디를 추가해주세요.)"
                    readonly="" type="text" *ngIf="!!f._id.value">
             <app-ui-select formControlName="tribe" *ngIf="!f._id.value">
-                <option value="">Tribe</option>
+                <option value="">종족</option>
                 <option value="{{label.Value}}" *ngFor="let label of LABEL_TRIBE_LIST">{{label.Text}}</option>
             </app-ui-select>
         </div>
     </div>
     <div class="field">
-        <label>Description</label>
+        <label>간단소개</label>
         <textarea rows="2" formControlName="description"></textarea>
     </div>
 </form>

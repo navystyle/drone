@@ -92,7 +92,6 @@ p.result-segment-elo {
   position: absolute;
   top: 8.5px;
   right: 0;
-  z-index: 1;
 }
 
 .ui.list > .item > img.image + .content {
@@ -113,5 +112,8 @@ p.result-segment-elo {
   text-align: center;
   font-size: 12px;
   color: $grey;
+}
 
+.ui.grid.result-segment {
+  margin-top: 0;
 }

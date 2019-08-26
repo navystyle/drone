@@ -42,7 +42,7 @@
             <table class="ui small unstackable very basic table">
                 <thead>
                 <tr>
-                    <th>Statistics</th>
+                    <th>통계</th>
                     <th class="center aligned">vs <img appImgTribe [tribe]="'terran'" class="ui ranking-tribe-rate image"></th>
                     <th class="center aligned">vs <img appImgTribe [tribe]="'zerg'" class="ui ranking-tribe-rate image"></th>
                     <th class="center aligned">vs <img appImgTribe [tribe]="'protoss'" class="ui ranking-tribe-rate image"></th>
@@ -50,13 +50,13 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Win rate</td>
+                    <td>승률</td>
                     <td class="center aligned">{{user.getRate('vsT')}}</td>
                     <td class="center aligned">{{user.getRate('vsZ')}}</td>
                     <td class="center aligned">{{user.getRate('vsP')}}</td>
                 </tr>
                 <tr>
-                    <td>Matches</td>
+                    <td>경기수</td>
                     <td class="center aligned">
                         <span class="ui blue text">{{user.resultData && user.resultData.win.vsT | number}}</span>
                         <span class="ui grey text"> / </span>
